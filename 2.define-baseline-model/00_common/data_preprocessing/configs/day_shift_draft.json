@@ -1,0 +1,20 @@
+{
+  "schema_version": "wisig_protocol_v1",
+  "status": "draft_for_review",
+  "name": "equalized_day_shift_6_2_2",
+  "representation": "equalized",
+  "split_seed": 42,
+  "known_tx_count": 6,
+  "validation_unknown_tx_count": 2,
+  "test_unknown_tx_count": 2,
+  "fold_count": 5,
+  "reference_date": "2021_03_01",
+  "test_dates": ["2021_03_01", "2021_03_08", "2021_03_15", "2021_03_23"],
+  "primary_rx_ids": ["1-1", "1-19", "1-20", "14-7", "18-19", "18-2", "19-1", "2-1", "2-19", "20-1", "20-20", "3-19", "7-7", "8-14", "8-7", "8-8"],
+  "minimum_group_signals": 200,
+  "train_signals_per_group": 120,
+  "validation_signals_per_group": 40,
+  "test_signals_per_group": 40,
+  "normalization": "sample_rms",
+  "supplemental_all_receivers": true
+}
