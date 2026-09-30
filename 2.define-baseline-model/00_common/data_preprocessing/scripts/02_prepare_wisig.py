@@ -74,7 +74,8 @@ def convert_dtype(array: np.ndarray, dtype_mode: str) -> np.ndarray:
     """
 
     if dtype_mode == "float32":
-        return np.ascontiguousarray(array, dtype=np.float32)
+        with np.errstate(over="ignore", invalid="ignore"):
+            return np.ascontiguousarray(array, dtype=np.float32)
     return np.ascontiguousarray(array)
 
 
@@ -141,6 +142,7 @@ def main() -> None:
     dataset = load_manyrx(input_path)
     signal_dir = output_root / "signals" / args.representation
     rows: list[dict[str, Any]] = []
+    skipped_groups: list[dict[str, Any]] = []
 
     for group_number, (info, source_array) in enumerate(
         iter_source_arrays(dataset, args.representation), start=1
@@ -151,8 +153,17 @@ def main() -> None:
         quality = summarize_array(iq)
         if not quality["shape_valid"]:
             raise RuntimeError(f"I/Q 配列の形が不正です: {info} / {quality['shape']}")
-        if quality["finite_fraction"] != 1.0:
-            raise RuntimeError(f"NaN または無限大があります: {info}")
+        if quality["empty"]:
+            skipped_groups.append(
+                {**info, "shape": quality["shape"], "signal_count": 0, "reason": "empty_source_group"}
+            )
+            continue
+        if quality["non_finite_count"] > 0:
+            raise RuntimeError(
+                f"NaN または無限大があります: {info} / "
+                f"shape={quality['shape']}, NaN={quality['nan_count']}, "
+                f"Inf={quality['inf_count']}（型変換後）"
+            )
 
         filename = group_filename(info)
         output_path = signal_dir / filename
@@ -174,6 +185,23 @@ def main() -> None:
             }
         )
 
+    write_json(
+        output_root / "skipped_groups.json",
+        {
+            "schema_version": "wisig_manyrx_skipped_groups_v1",
+            "representation": args.representation,
+            "empty_group_policy": "skip",
+            "limited_output_for_code_check": bool(args.limit_groups),
+            "limit_groups": args.limit_groups,
+            "skipped_group_count": len(skipped_groups),
+            "groups": skipped_groups,
+        },
+    )
+    if not rows:
+        raise RuntimeError(
+            "処理対象に保存可能な信号がありません。"
+            "空グループの詳細: skipped_groups.json"
+        )
     write_manifest(output_root / "manifest.csv", rows)
     summary = {
         "schema_version": "wisig_manyrx_prepared_v1",
@@ -185,7 +213,11 @@ def main() -> None:
         "compression": args.compression,
         "limited_output_for_code_check": bool(args.limit_groups),
         "limit_groups": args.limit_groups,
+        "source_group_count": len(rows) + len(skipped_groups),
         "group_count": len(rows),
+        "skipped_empty_group_count": len(skipped_groups),
+        "empty_group_policy": "skip",
+        "skipped_group_report": "skipped_groups.json",
         "total_signal_count": sum(int(row["signal_count"]) for row in rows),
         "normalization_applied": False,
         "augmentation_applied": False,
@@ -194,6 +226,7 @@ def main() -> None:
     write_json(output_root / "dataset_summary.json", summary)
     print(f"変換が完了しました: {output_root}")
     print(f"グループ数: {summary['group_count']}")
+    print(f"空グループのスキップ数: {summary['skipped_empty_group_count']}")
     print(f"信号数: {summary['total_signal_count']}")
 
 

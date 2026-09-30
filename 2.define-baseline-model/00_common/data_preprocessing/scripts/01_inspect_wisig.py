@@ -63,9 +63,9 @@ def inspect_representation(dataset: dict[str, Any], name: str) -> dict[str, Any]
         shape_counts[str(tuple(summary["shape"]))] += 1
         dtype_counts[summary["dtype"]] += 1
         total_signals += summary["signal_count"]
-        non_finite_groups += int(summary["finite_fraction"] != 1.0)
+        non_finite_groups += int(summary["non_finite_count"] > 0)
         invalid_shape_groups += int(not summary["shape_valid"])
-        zero_signal_groups += int(summary["signal_count"] == 0)
+        zero_signal_groups += int(summary["empty"])
 
     return {
         "group_count": sum(shape_counts.values()),

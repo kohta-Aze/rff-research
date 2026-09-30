@@ -234,15 +234,17 @@ def summarize_array(array: np.ndarray) -> dict[str, Any]:
     """
 
     value = np.asarray(array)
-    shape_valid = value.ndim == 3 and value.shape[-1] == 2
+    shape_valid = value.ndim == 3 and value.shape[1:] == (256, 2)
     finite = np.isfinite(value)
-    finite_fraction = float(finite.mean()) if value.size else 0.0
+    # 空集合では割合を定義しない。空配列と非有限値を別々に扱う。
+    finite_fraction = float(finite.mean()) if value.size else None
+    non_finite_count = int(value.size - np.count_nonzero(finite))
     zero_signal_count = 0
     rms_amplitude = math.nan
     mean_i = math.nan
     mean_q = math.nan
 
-    if shape_valid and value.shape[0] > 0:
+    if shape_valid and value.shape[0] > 0 and non_finite_count == 0:
         zero_signal_count = int(np.all(value == 0, axis=(1, 2)).sum())
         mean_i = float(np.mean(value[..., 0]))
         mean_q = float(np.mean(value[..., 1]))
@@ -256,7 +258,9 @@ def summarize_array(array: np.ndarray) -> dict[str, Any]:
         "sample_length": int(value.shape[1]) if value.ndim == 3 else 0,
         "component_count": int(value.shape[2]) if value.ndim == 3 else 0,
         "shape_valid": bool(shape_valid),
+        "empty": bool(value.size == 0),
         "finite_fraction": finite_fraction,
+        "non_finite_count": non_finite_count,
         "nan_count": int(np.isnan(value).sum())
         if np.issubdtype(value.dtype, np.inexact)
         else 0,
