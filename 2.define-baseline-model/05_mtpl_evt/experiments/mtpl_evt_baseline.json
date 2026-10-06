@@ -1,0 +1,21 @@
+{
+  "schema_version": "mtpl_evt_experiment_v1",
+  "status": "draft_for_review",
+  "name": "mtpl_evt_common_cnn_v1",
+  "variant": "common_real_cnn_not_paper_complex_cnn_reproduction",
+  "architecture": {"channels": [32, 64, 128], "kernel_sizes": [7, 5, 3], "feature_dim": 128, "dropout": 0.2},
+  "decoder": "linear_relu_reshape_128x32_convtranspose_64_32_2_kernel4_stride2_padding1",
+  "prototype": {"construction": "jointly_learned_not_posthoc_class_means", "initialization": "gaussian", "initialization_std": 0.01, "normalization": "none"},
+  "training": {
+    "optimizer": "Adam", "learning_rate": 0.001, "weight_decay": 0.0, "batch_size": 64,
+    "max_epochs": 50, "early_stopping_patience": 10,
+    "selection": "minimum_validation_known_classifier_cross_entropy", "augmentation": "none",
+    "reconstruction_weight": 0.1, "prototype_weight": 0.05,
+    "norm_reduction": "sum_coordinates_then_mean_samples", "initialization": "from_scratch_same_seed_as_msp"
+  },
+  "evt": {"fit": "global_true_class_training_squared_euclidean_gpd_mle", "quantile": 0.9, "quantile_method": "linear", "location": 0.0, "minimum_tail_count": 20, "body_score": 1.0, "paper_delta": 0.01},
+  "threshold": {"rule": "maximize_mean_known_correct_accept_and_unknown_reject", "tie_break": "highest_threshold", "allowed_range": "0 < delta <= 1", "acceptance": "gpd_survival_probability_greater_than_or_equal_to_delta"},
+  "inference_batch_size": 64,
+  "secondary_ranking": "negative_minimum_distance_to_expose_probability_ties_no_retuning",
+  "planned_comparison": {"folds": [0, 1, 2, 3, 4], "seeds": [42, 43, 44], "primary_metric": "oscr_auc", "aggregation": "per_date_mean_and_std_across_runs_not_pooled_predictions"}
+}

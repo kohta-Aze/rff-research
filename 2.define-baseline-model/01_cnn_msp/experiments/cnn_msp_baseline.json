@@ -1,0 +1,33 @@
+{
+  "schema_version": "cnn_msp_experiment_v1",
+  "status": "draft_for_review",
+  "name": "cnn_msp_baseline_v1",
+  "architecture": {
+    "channels": [32, 64, 128],
+    "kernel_sizes": [7, 5, 3],
+    "feature_dim": 128,
+    "dropout": 0.2
+  },
+  "training": {
+    "optimizer": "Adam",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "batch_size": 64,
+    "max_epochs": 50,
+    "early_stopping_patience": 10,
+    "selection": "minimum_validation_known_cross_entropy",
+    "augmentation": "none"
+  },
+  "threshold": {
+    "rule": "maximize_mean_known_correct_accept_and_unknown_reject",
+    "tie_break": "highest_threshold",
+    "acceptance": "msp_greater_than_or_equal_to_threshold",
+    "temperature": 1.0
+  },
+  "planned_comparison": {
+    "folds": [0, 1, 2, 3, 4],
+    "seeds": [42, 43, 44],
+    "primary_metric": "oscr_auc",
+    "aggregation": "per_date_mean_and_std_across_runs_not_pooled_predictions"
+  }
+}

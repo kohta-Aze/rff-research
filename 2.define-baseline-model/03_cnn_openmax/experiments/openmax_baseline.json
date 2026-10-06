@@ -1,0 +1,20 @@
+{
+  "schema_version": "openmax_experiment_v1",
+  "status": "draft_for_review",
+  "name": "openmax_baseline_v1",
+  "activation": "six_class_logits_single_channel",
+  "calibration": "correctly_classified_known_training_only",
+  "distance": "eucos",
+  "euclidean_scale": 200.0,
+  "tail_sizes": [20, 50, 100],
+  "alpha_ranks": [1, 3, 6],
+  "candidate_selection": "maximum_validation_balanced_open_set_accuracy_then_grid_order",
+  "score": "known_max_probability_if_known_wins_else_negative_unknown_probability",
+  "threshold": {
+    "rule": "maximize_mean_known_correct_accept_and_unknown_reject",
+    "tie_break": "highest_positive_threshold",
+    "unknown_probability_tie": "reject"
+  },
+  "inference_batch_size": 64,
+  "planned_comparison": {"folds": [0, 1, 2, 3, 4], "seeds": [42, 43, 44], "primary_metric": "oscr_auc"}
+}
