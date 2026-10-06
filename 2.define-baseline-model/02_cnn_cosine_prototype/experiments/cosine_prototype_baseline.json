@@ -1,0 +1,18 @@
+{
+  "schema_version": "cosine_prototype_experiment_v1",
+  "status": "draft_for_review",
+  "name": "cosine_prototype_baseline_v1",
+  "feature_layer": "embedding_relu_before_dropout",
+  "prototype": {
+    "construction": "normalize_mean_raw_training_embeddings",
+    "normalization_epsilon": 1e-12,
+    "arithmetic_dtype": "float64"
+  },
+  "inference": {"batch_size": 64, "prediction": "maximum_cosine_similarity"},
+  "threshold": {
+    "rule": "maximize_mean_known_correct_accept_and_unknown_reject",
+    "tie_break": "highest_threshold",
+    "acceptance": "similarity_greater_than_or_equal_to_threshold"
+  },
+  "planned_comparison": {"folds": [0, 1, 2, 3, 4], "seeds": [42, 43, 44], "primary_metric": "oscr_auc"}
+}

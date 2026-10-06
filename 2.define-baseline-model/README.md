@@ -1,44 +1,19 @@
+
 # Open-Set RFF ベースライン比較
 
-## このディレクトリの目的
-同じデータ（WiSig）と共通の評価指標を定義した上で５つのOpen-Setの手法を実際に実行する。
-現時点でも新しい手法が日進月歩編み出されているが、現段階で自分が知り得ている手法についてやることにする。
-この内で最も優れた手法をベースラインとして、そいつを使用して日を跨いだ時の認証制度の低下を図にしていくことにする。
-そして、それの原因というのを今後考察し、実験し分析していく。
-なのでこのディレクトリでの目的はベースラインの一時確定である。
+- 目的: WiSigで5手法を比較し、日跨ぎ研究の基準モデルを定める。
+- 確定: 2026-10-06、ユーザー判断でCNN＋OpenMaxを研究用ベースラインに採用。
+## 構成
 
-## 比較する5手法
-*比較する手法についてはまた要検討の余地がある*
-| 番号 | 手法 | 未知端末を見つける考え方 | 役割 |
-|---:|---|---|---|
-| 1 | CNN + MSP | CNN の最大 Softmax 確率が低い信号を未知とする | 最も単純な基準 |
-| 2 | CNN + Cosine Prototype | 特徴と既知端末の代表ベクトルの角度が遠い信号を未知とする | 距離型の単純な基準 |
-| 3 | CNN + OpenMax | 既知クラスの外れ値の尾を Weibull 分布で学習し、未知確率を作る | 古典的な EVT 手法 |
-| 4 | SupCon + Prototype | 同じ端末の特徴を近づけ、異なる端末を離してから代表ベクトルとの距離を見る | 特徴学習を強くした距離型手法 |
-| 5 | MTPL + EVT | 分類・復元・プロトタイプ学習を同時に行い、距離の尾を GPD で判定する | 有力な第一候補 |
+| フォルダ・ファイル | 用途 |
+|---|---|
+| `00_common/` | [前処理](00_common/data_preprocessing/README.md)、[共通モデル・評価・テスト](00_common/modeling/README.md) |
+| [01_cnn_msp/](01_cnn_msp/README.md) | 単純なsoftmax基準、OpenMax用CNNの学習 |
+| [02_cnn_cosine_prototype/](02_cnn_cosine_prototype/README.md) | 同一CNN特徴での距離型基準 |
+| [03_cnn_openmax/](03_cnn_openmax/README.md) | 採用ベースラインの校正・判定 |
+| [04_supcon_prototype/](04_supcon_prototype/README.md) | 対照学習の比較対象 |
+| [05_mtpl_evt/](05_mtpl_evt/README.md) | 同時学習とGPD判定の比較対象 |
+| `2026-10-06_*.md / *.json` | 初回比較の結果・判断と数値根拠 |
 
-## ディレクトリ構成
-
-```text
-2.define-baseline-model/
-├── 00_common/                    # 全手法で共有するデータとルール
-│   ├── docs/
-│   └── data_preprocessing/
-├── 01_cnn_msp/
-├── 02_cnn_cosine_prototype/
-├── 03_cnn_openmax/
-├── 04_supcon_prototype/
-└── 05_mtpl_evt/
-```
-
-書くディレクトリの内容
-- `README.md`: その手法の入口
-- `docs/`: 論文、根拠ページ、やさしい説明
-- `scripts/`: 将来置く学習・評価スクリプトの説明
-- `experiments/`: 実験条件と実行記録
-- `output/`: *実験結果。README 以外は Git に登録しない想定*
-*作業環境は既にWindowdsとMacの二つのパソコンがあり、環境の再現に多くの時間がかかるのは望ましくない。一方でリポジトリが極端に重くなるのもよくない。なのでスクリプトくらいは公開して、データに関してはダウンロードようのスクリプトを一個用意するのが良いかもしれない。ただそれは本当に最終段階にした方が余計な労力はかからないかもしれない。なぜならWindowdsもそこそこスペックはあるもののあまり大きな処理は動かさない想定だからだ。*
-
-## Git に関する約束
-
-この作業はローカルの `codex/issue-11-open-set-baseline` ブランチ上で進めます。明示的な許可があるまで、push、Pull Request 作成、remote の `main` への merge は行いません。
+- 各手法の `scripts/` は実行コード、`experiments/` は固定設定、`docs/papers/` は根拠PDF、`output/` はローカル生成物。
+- 必要な実行順: データ前処理 → MSP → Cosine → OpenMax → SupCon → MTPL。コマンドは再現手順に集約。
