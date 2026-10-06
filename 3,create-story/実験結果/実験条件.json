@@ -1,0 +1,70 @@
+{
+  "generated_at_jst": "2026-10-06T17:11:27+09:00",
+  "fold": 0,
+  "seed": 42,
+  "source_commit": {
+    "dataset_summary_sha256": "068968f988df6058d1b8bf581a9437af28084578b7b7983d534eb5995f986782",
+    "manifest_sha256": "449d4d8a74170d1ea20572d036e888025ab28e9d5cf2eba67e1a0cfdf0dc6ecb",
+    "skipped_groups_sha256": "b400b88072644d594c2f69a6353136131ea1590c8967b4e78ba29d0810b7094b",
+    "source_sha256": "f634d90585167437d196c89b7c5a344903180bf4f5a55d02d175b8074e009d9a"
+  },
+  "base_split_sha256": "58f4a230a9214960989651e277ae2896f4c548ff9a18d26b9bb3858b2f9553f5",
+  "readiness_sha256": "5c7d32458f43fee6b9283fdf42b32590af044dda9421dab0af8df180c10fe206",
+  "conditions": {
+    "A1_1day": [
+      [
+        "2021_03_01"
+      ],
+      [
+        120
+      ]
+    ],
+    "A2_2day": [
+      [
+        "2021_03_01",
+        "2021_03_08"
+      ],
+      [
+        60,
+        60
+      ]
+    ],
+    "A3_3day": [
+      [
+        "2021_03_01",
+        "2021_03_08",
+        "2021_03_15"
+      ],
+      [
+        40,
+        40,
+        40
+      ]
+    ]
+  },
+  "validation_quotas": {
+    "A1_1day": [
+      40
+    ],
+    "A2_2day": [
+      20,
+      20
+    ],
+    "A3_3day": [
+      13,
+      13,
+      14
+    ]
+  },
+  "n_rx": 16,
+  "n_known_tx": 6,
+  "threads": 4,
+  "runtime_seconds": 436.3218641000567,
+  "scope": "exploratory_single_fold_single_seed",
+  "test_signal_refs_sha256": {
+    "2021_03_01": "6ec47cc972061d064d0e5f04d619f7b351db8e82138876fedca7410e5ae003bf",
+    "2021_03_08": "0832186637ac25f47f9a2547f0cdecef42e5d212b99222e9a24ef35437cfa074",
+    "2021_03_15": "a4a25da2693c4d211d9ec30333c2d7f49698dca94800cca35c45680c13ac07c1",
+    "2021_03_23": "417809658d94cbd6b4a49301da3cb613eff1b74d38b4c98501b6e2bbccc3de48"
+  }
+}
