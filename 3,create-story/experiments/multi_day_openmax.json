@@ -1,0 +1,26 @@
+{
+  "schema_version": "multiday_openmax_v1",
+  "status": "draft_for_review",
+  "folds": [0],
+  "seeds": [42, 43, 44],
+  "threads": 4,
+  "target_date": "2021_03_23",
+  "source_dates": ["2021_03_01", "2021_03_08", "2021_03_15"],
+  "train_per_tx_rx_total": 120,
+  "validation_per_tx_rx_total": 40,
+  "calibration_max_correct_per_class": 600,
+  "calibration_ablation_tail_size": 100,
+  "calibration_ablation_alpha_rank": 3,
+  "crossday_supcon": {"weight": 0.1, "temperature": 0.07, "projection_dim": 128},
+  "cases": [
+    {"id": "A1", "label": "1日学習・03/01", "dates": ["2021_03_01"], "loss": "ce"},
+    {"id": "A2", "label": "2日学習・03/01+08", "dates": ["2021_03_01", "2021_03_08"], "loss": "ce"},
+    {"id": "A3", "label": "3日学習・03/01+08+15", "dates": ["2021_03_01", "2021_03_08", "2021_03_15"], "loss": "ce"},
+    {"id": "C8", "label": "1日学習・03/08", "dates": ["2021_03_08"], "loss": "ce"},
+    {"id": "C15", "label": "1日学習・03/15", "dates": ["2021_03_15"], "loss": "ce"},
+    {"id": "S3", "label": "3日学習・CE+日跨ぎSupCon", "dates": ["2021_03_01", "2021_03_08", "2021_03_15"], "loss": "ce_crossday_supcon"}
+  ],
+  "primary_metric": "oscr_auc",
+  "test_access": "after_all_training_and_validation_choices_are_saved",
+  "scope": "exploratory_single_tx_fold_three_training_seeds"
+}
