@@ -15,7 +15,8 @@ from matplotlib.ticker import PercentFormatter
 
 def main():
     story = Path(__file__).resolve().parents[1]
-    source = story.parent / "2.define-baseline-model" / "2026-10-06_初回比較結果.json"
+    repo = next(p for p in story.parents if (p / "2.define-baseline-model").is_dir())
+    source = repo / "2.define-baseline-model" / "2026-10-06_初回比較結果.json"
     record = json.loads(source.read_text(encoding="utf-8-sig"))
     available = {font.name for font in font_manager.fontManager.ttflist}
     font = next((name for name in ("Meiryo", "Yu Gothic", "Noto Sans CJK JP")

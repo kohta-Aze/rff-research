@@ -22,5 +22,4 @@ Radio Frequency Fingerprinting Research
 - `0.paper-library`: 関連論文。
 - `1.reserch-theme`: 研究テーマの候補。
 - `2.define-baseline-model`: 共通データ処理と5手法のベースライン。
-- `3,create-story`: 日跨ぎ改善の仮説と実験。
-- [4.software-rff-enhancement](4.software-rff-enhancement/README.md): ソフトウェアで付与したRF特徴の実験準備。環境・データ取得・実行手順は同READMEを参照。
+- [3.improve-baseline](3.improve-baseline/README.md): 確定したCNN＋OpenMaxの改善研究。複数日学習、同じWiSigへの波形加工、ORACLEの予備実験を整理。

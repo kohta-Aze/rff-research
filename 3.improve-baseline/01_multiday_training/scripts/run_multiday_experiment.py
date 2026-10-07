@@ -13,7 +13,7 @@ import time
 import numpy as np
 import torch
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = next(p for p in Path(__file__).resolve().parents if (p / "2.define-baseline-model").is_dir())
 PREP = ROOT / "2.define-baseline-model/00_common/data_preprocessing"
 MODEL = ROOT / "2.define-baseline-model"
 sys.path.insert(0, str(MODEL / "01_cnn_msp/scripts"))

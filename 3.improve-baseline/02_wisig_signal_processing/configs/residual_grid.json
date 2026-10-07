@@ -1,0 +1,15 @@
+{
+  "schema_version": "wisig_frozen_residual_v1",
+  "condition": "B1",
+  "method": "shared_residual_emphasis",
+  "lambdas": [0.0, -0.25, 0.1, 0.25, 0.5],
+  "selection_view": "source_validation_only",
+  "selection_metric": "oscr_auc",
+  "tie_break": "grid_order",
+  "max_relative_l2_per_signal": 0.1,
+  "max_unknown_far_increase": 0.02,
+  "max_known_accuracy_decrease": 0.02,
+  "inference_batch_size": 64,
+  "cnn_retrained": false,
+  "openmax_recalibrated": false
+}

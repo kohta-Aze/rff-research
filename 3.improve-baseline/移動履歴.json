@@ -1,0 +1,9 @@
+{
+  "moved_on_jst": "2026-10-07",
+  "mappings": {
+    "3,create-story": "3.improve-baseline/01_multiday_training",
+    "4.software-rff-enhancement": "3.improve-baseline/90_oracle_feasibility"
+  },
+  "historical_run_records_rewritten": false,
+  "note": "過去の実行記録・source_snapshot・raw_rootの旧絶対パスは当時の履歴として保存。再実行は移動後READMEのコマンドを使う。"
+}

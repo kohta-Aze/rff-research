@@ -1,0 +1,44 @@
+{
+  "checked_at_jst": "2026-10-07T12:18:23+09:00",
+  "scope": "preparation_and_identity_validation_only",
+  "baseline_files_verified": 17,
+  "identity_validation_reproduced": true,
+  "cnn_state_unchanged": true,
+  "baseline_validation_metrics": {
+    "sample_count": 5120,
+    "known_count": 3840,
+    "unknown_count": 1280,
+    "threshold": 0.9886126942268116,
+    "known_closed_set_accuracy": 0.9424479166666667,
+    "known_correct_accept_rate": 0.7734375,
+    "known_false_reject_rate": 0.22604166666666667,
+    "known_misidentification_rate": 0.0005208333333333333,
+    "unknown_false_accept_rate": 0.5390625,
+    "unknown_reject_rate": 0.4609375,
+    "balanced_open_set_accuracy": 0.6171875,
+    "auroc_known_positive": 0.6394148763020834,
+    "oscr_auc": 0.6250624593098958
+  },
+  "test_executed": false,
+  "processed_wisig_improvement_measured": false,
+  "unit_tests_passed": {
+    "wisig_processing": 9,
+    "relocated_oracle": 17
+  },
+  "oracle_environment_relocated_and_verified": true,
+  "oracle_prepared_data_revalidated": true,
+  "implemented": [
+    "M1_residual_emphasis",
+    "B0_identity",
+    "B1_frozen_cnn_and_openmax",
+    "source_validation_selection",
+    "paired_test_evaluation"
+  ],
+  "planned_not_implemented": [
+    "M2_learned_shared_fir",
+    "B2_recalibration",
+    "B3_retraining_and_augmentation",
+    "mechanism_analysis"
+  ],
+  "local_run": "output/20261007_identity_verification"
+}

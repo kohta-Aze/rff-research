@@ -9,7 +9,7 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-REPO = ROOT.parent
+REPO = next(p for p in ROOT.parents if (p / "2.define-baseline-model").is_dir())
 BASELINE = REPO / "2.define-baseline-model"
 sys.path.insert(0, str(BASELINE / "00_common/modeling/scripts"))
 sys.path.insert(0, str(BASELINE / "00_common/data_preprocessing/scripts"))

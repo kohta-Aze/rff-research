@@ -1,0 +1,55 @@
+{
+  "schema_version": "wisig_baseline_contract_v1",
+  "created_at": "2026-10-07T12:16:55+09:00",
+  "baseline_reference": "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42",
+  "split": "2.define-baseline-model/00_common/data_preprocessing/output/splits/day_shift_draft/fold_00.json",
+  "prepared_root": "2.define-baseline-model/00_common/data_preprocessing/output/prepared-wisig",
+  "fold": 0,
+  "seed": 42,
+  "tx_roles": {
+    "known": [
+      "1-10",
+      "14-7",
+      "20-15",
+      "20-19",
+      "7-11",
+      "7-14"
+    ],
+    "test_unknown": [
+      "11-1",
+      "14-10"
+    ],
+    "validation_unknown": [
+      "17-11",
+      "8-20"
+    ]
+  },
+  "class_map": {
+    "1-10": 0,
+    "14-7": 1,
+    "20-15": 2,
+    "20-19": 3,
+    "7-11": 4,
+    "7-14": 5
+  },
+  "test_status": "previously_inspected_exploratory_dates",
+  "file_sha256": {
+    "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42/cnn_model.pt": "7bbb07a32e4c9fc0bafb04614471b7379caf8d603cd8038a7762d8b2ea890f70",
+    "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42/calibration.json": "db9592dffb84cb95ef0d954a970fc4a485fb43f9b1bc60e855f520c81b392c81",
+    "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42/threshold.json": "8510ebff5dd844172e20b8040674d182bb66b1d7a6d7e9223351f60715b72a51",
+    "2.define-baseline-model/00_common/data_preprocessing/output/splits/day_shift_draft/fold_00.json": "58f4a230a9214960989651e277ae2896f4c548ff9a18d26b9bb3858b2f9553f5",
+    "2.define-baseline-model/03_cnn_openmax/scripts/run_openmax_experiment.py": "a7b1f8ba4ef312dd52f9ac67e164aed48d714577c75fd55672c88f01687878c2",
+    "2.define-baseline-model/01_cnn_msp/scripts/run_experiment.py": "7672762be92bc80ef8c785472823831ea0a72b7a8f41d8322cb2bb1cf57c756d",
+    "2.define-baseline-model/00_common/modeling/scripts/cnn_backbone.py": "7a6bb3423e8e6c49c8baec7253170a21d58d132e89f1ad287931cb2e450a0f57",
+    "2.define-baseline-model/00_common/modeling/scripts/cosine_prototype.py": "e44c0d37d2e9833ac760279ed29dd47c5defbe8b24be3aa1da147c711c1b1930",
+    "2.define-baseline-model/00_common/modeling/scripts/open_set_metrics.py": "039a55db2d9818fbfc0dadfaaa7b14b893a5905ccd7b00a14ee9dbed5fc2f34b",
+    "2.define-baseline-model/00_common/modeling/scripts/open_set_outputs.py": "0a0b056715d8f8b229b538d939ea7e95feca3f87e2d8ba3f11a9e48d65d1f146",
+    "2.define-baseline-model/00_common/modeling/scripts/openmax.py": "81f055fc3b3b12da77197ac6088348b2bed391d4b84a06404bd1a22bc9c55e2c",
+    "2.define-baseline-model/00_common/data_preprocessing/scripts/wisig_common.py": "8710edfcd74968ad3ca947f7a4e92183cddfe2b7378321e20d1b0286282a6ac3",
+    "2.define-baseline-model/00_common/data_preprocessing/scripts/wisig_coverage.py": "16c9f09cd4b0660b2419b4f6f91daa410a2b60aa70866dbd440101e2a4df5fd0",
+    "2.define-baseline-model/00_common/data_preprocessing/scripts/wisig_dataset.py": "4c664f01885d7c2ced29aeed79ca3540e688590482e4bbe79dea1eb411a85fc6",
+    "2.define-baseline-model/00_common/data_preprocessing/scripts/wisig_protocol.py": "d6ff08c26df8f7aa553981452c6e02599258e175643a7c5a8ba01c029c94502f",
+    "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42/run.json": "cbfc2ff4a065031d2936a31dba00a53bf516f05cb8f04d601ed085ee35106afd",
+    "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42/metrics.json": "6c6975e7f7ed8edbae0a2843c2c3a3dc8c7f90bfc230b73ad5304860de041d74"
+  }
+}

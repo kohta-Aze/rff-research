@@ -1,6 +1,11 @@
 param([switch]$Standalone)
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
+while (-not (Test-Path -LiteralPath (Join-Path $repoRoot '2.define-baseline-model'))) {
+    $parentPath = Split-Path -Parent $repoRoot
+    if (-not $parentPath -or $parentPath -eq $repoRoot) { throw 'Repository root was not found.' }
+    $repoRoot = $parentPath
+}
 $sharedPython = Join-Path $repoRoot '2.define-baseline-model/00_common/data_preprocessing/venv/Scripts/python.exe'
 $localPython = Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
 if (-not (Test-Path -LiteralPath $localPython)) {
