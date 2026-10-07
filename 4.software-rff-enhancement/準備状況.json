@@ -1,0 +1,172 @@
+{
+  "updated_at_jst": "2026-10-07T10:52:14+09:00",
+  "status": "prepared_except_real_data_acquisition",
+  "ready_for_real_experiment": false,
+  "environment": {
+    "checked_at_jst": "2026-10-07T10:51:52+09:00",
+    "status": "passed",
+    "python": "C:\\00_github_projects\\rff-research\\4.software-rff-enhancement\\.venv\\Scripts\\python.exe",
+    "version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "device": "cpu",
+    "packages": {
+      "numpy": "2.5.3",
+      "torch": "2.7.0",
+      "scipy": "1.16.2",
+      "scikit-learn": "1.7.2",
+      "libmr": "0.1.9",
+      "Cython": "3.1.3"
+    },
+    "cnn_output_shape": [
+      2,
+      2
+    ],
+    "native_libmr_fit": "passed",
+    "dependency_mode": "local_venv_with_shared_baseline_site_packages"
+  },
+  "acquisition": {
+    "oracle_dataset2": {
+      "attempted_at_jst": "2026-10-07T10:49:15+09:00",
+      "dataset": "oracle_dataset2",
+      "source": {
+        "landing_url": "https://www.genesys-lab.org/oracle",
+        "handle": "2047/D20324548",
+        "record_url": "https://repository.library.northeastern.edu/files/neu:m044q5228",
+        "archive_url": "https://repository.library.northeastern.edu/downloads/neu:m044q523j?datastream_id=content",
+        "description": "Equalized demodulated IQ symbols with 16 injected IQ imbalance configurations; cable capture.",
+        "dtype": "<c16",
+        "citation": "K. Sankhe et al., ORACLE: Optimized Radio clAssification through Convolutional neuraL nEtworks, IEEE INFOCOM 2019, pp. 370-378.",
+        "paper_url": "https://genesys-lab.org/papers/ORACLE-INFOCOM-19.pdf"
+      },
+      "status": "blocked",
+      "attempts": [
+        {
+          "url": "https://www.genesys-lab.org/oracle",
+          "status": "ok",
+          "resolved_url": "https://www.genesys-lab.org/oracle"
+        },
+        {
+          "url": "https://hdl.handle.net/api/handles/2047/D20324548",
+          "status": "ok",
+          "resolved_url": "https://hdl.handle.net/api/handles/2047/D20324548"
+        },
+        {
+          "url": "https://repository.library.northeastern.edu/files/neu:m044q5228",
+          "status": "failed",
+          "error": "HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://repository.library.northeastern.edu/downloads/neu:m044q523j?datastream_id=content",
+          "kind": "archive",
+          "status": "failed",
+          "error": "HTTP Error 403: Forbidden",
+          "method": "Python urllib; observed during acquisition at attempted_at_jst"
+        }
+      ],
+      "waveform_acquired": false,
+      "discovered_downloads": [],
+      "error": "HTTPError: HTTP Error 403: Forbidden"
+    },
+    "airid": {
+      "attempted_at_jst": "2026-10-07T10:37:50+09:00",
+      "dataset": "airid",
+      "source": {
+        "landing_url": "https://genesys-lab.org/airid",
+        "handle": "2047/D20385048",
+        "record_url": "https://repository.library.northeastern.edu/files/neu:ww72bh13k",
+        "description": "OTA UAV recordings with injected amplitude imbalance; secondary study requiring a separate protocol and confirmed binary format.",
+        "citation": "S. Mohanti et al., AirID: Injecting a Custom RF Fingerprint for enhanced UAV Identification using Deep Learning, IEEE GLOBECOM 2020.",
+        "paper_url": "https://genesys-lab.org/papers/AirID_GLOBECOM2020.pdf"
+      },
+      "status": "metadata_only",
+      "attempts": [
+        {
+          "url": "https://genesys-lab.org/airid",
+          "status": "ok",
+          "resolved_url": "https://genesys-lab.org/airid"
+        },
+        {
+          "url": "https://hdl.handle.net/api/handles/2047/D20385048",
+          "status": "ok",
+          "resolved_url": "https://hdl.handle.net/api/handles/2047/D20385048"
+        },
+        {
+          "url": "https://repository.library.northeastern.edu/files/neu:ww72bh13k",
+          "status": "failed",
+          "error": "HTTP Error 403: Forbidden"
+        }
+      ],
+      "waveform_acquired": false,
+      "discovered_downloads": []
+    }
+  },
+  "protocol_tests": {
+    "status": "passed",
+    "count": 12,
+    "exit_code": 0,
+    "log": "output/protocol_tests.log",
+    "log_sha256": "83ad638da1de46c32f1a31b6deb998e26905efabc387ca23252436024ad5ed2f"
+  },
+  "synthetic_end_to_end": {
+    "status": "passed",
+    "checks": [
+      "ZIP import",
+      "complex128 despite cf32 metadata",
+      "256-point nonoverlapping windows",
+      "Tx/run-group isolation",
+      "RMS normalization",
+      "existing CNN training",
+      "MSP threshold",
+      "native libMR OpenMax",
+      "score/curve export",
+      "AWGN stress export"
+    ],
+    "synthetic_fixture": true,
+    "scientific_result": false,
+    "report": "output/smoke_delivery/smoke_result.json",
+    "report_sha256": "542a00e3790d14456a488bf8064d424296f18278a023920b892a0ed5d3d4f7a5"
+  },
+  "planned_matrix": {
+    "status": "dry_run",
+    "jobs": 15,
+    "folds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "report": "output/matrices/planned_delivery/matrix.json"
+  },
+  "real_waveform_recordings": 0,
+  "real_training_executed": false,
+  "real_accuracy_evaluated": false,
+  "blockers": [
+    "公式ORACLE ZIPは直接取得403・ブラウザ取得タイムアウト。実波形は未取得。"
+  ],
+  "remaining_steps": [
+    "公式ZIPを再取得または取込",
+    "ファイル型・16設定・独立Tx/run数を棚卸し",
+    "3群以上かつ各分割のクラスが揃うことを確認",
+    "前処理・分割検証後に本実験を実行"
+  ],
+  "scope": "injected_signature_open_set_identification_not_cross_day_or_causal_improvement",
+  "source_sha256": {
+    "scripts/check_environment.py": "76656c9255660544fba3a6e85d979f095983367567832a075e4f37973fd1b2f8",
+    "scripts/common.py": "b4261c66e3c8177cecee9092ca224e07eb3bb8fb11194952d8a3faab0bd01e5e",
+    "scripts/download_data.py": "7124af788ccc17ff8ec4c83c7559498911de700b27a8b6c24af2c1c9b16ffba1",
+    "scripts/prepare_data.py": "cd2a84a903de699cf5dba3cc0d890c0bdf8376b31a2f77e52f1951e01cfb2587",
+    "scripts/run_experiment.py": "0e1cd210a6f41667d18953f4535f2ca0a5c161ba0f3bc4683a77d40bd34121b7",
+    "scripts/run_matrix.py": "2f825d7f641a9b974a953e7fb13996b6fc510b60ba0a6620df0e296df8961581",
+    "scripts/smoke_test.py": "87e7d3064afc2c8cb1434905c22f94cb379d9fc7a0b03f42ccd6fa5eeb81d452"
+  },
+  "config_sha256": {
+    "configs/oracle_iq.json": "e5770b28f4888fcca000e76ba31ec99aeb2022d5fee71ccb29a7b78b1f61350c",
+    "configs/sources.json": "bb1ec40ef6626e00f276f4759322188426668d30d698aa215fe958bf74b0c9bf"
+  }
+}

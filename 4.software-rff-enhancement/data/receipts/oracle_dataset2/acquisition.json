@@ -1,0 +1,42 @@
+{
+  "attempted_at_jst": "2026-10-07T10:49:15+09:00",
+  "dataset": "oracle_dataset2",
+  "source": {
+    "landing_url": "https://www.genesys-lab.org/oracle",
+    "handle": "2047/D20324548",
+    "record_url": "https://repository.library.northeastern.edu/files/neu:m044q5228",
+    "archive_url": "https://repository.library.northeastern.edu/downloads/neu:m044q523j?datastream_id=content",
+    "description": "Equalized demodulated IQ symbols with 16 injected IQ imbalance configurations; cable capture.",
+    "dtype": "<c16",
+    "citation": "K. Sankhe et al., ORACLE: Optimized Radio clAssification through Convolutional neuraL nEtworks, IEEE INFOCOM 2019, pp. 370-378.",
+    "paper_url": "https://genesys-lab.org/papers/ORACLE-INFOCOM-19.pdf"
+  },
+  "status": "blocked",
+  "attempts": [
+    {
+      "url": "https://www.genesys-lab.org/oracle",
+      "status": "ok",
+      "resolved_url": "https://www.genesys-lab.org/oracle"
+    },
+    {
+      "url": "https://hdl.handle.net/api/handles/2047/D20324548",
+      "status": "ok",
+      "resolved_url": "https://hdl.handle.net/api/handles/2047/D20324548"
+    },
+    {
+      "url": "https://repository.library.northeastern.edu/files/neu:m044q5228",
+      "status": "failed",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://repository.library.northeastern.edu/downloads/neu:m044q523j?datastream_id=content",
+      "kind": "archive",
+      "status": "failed",
+      "error": "HTTP Error 403: Forbidden",
+      "method": "Python urllib; observed during acquisition at attempted_at_jst"
+    }
+  ],
+  "waveform_acquired": false,
+  "discovered_downloads": [],
+  "error": "HTTPError: HTTP Error 403: Forbidden"
+}

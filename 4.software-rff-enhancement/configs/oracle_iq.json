@@ -1,0 +1,30 @@
+{
+  "schema_version": "software_rff_v1",
+  "dataset": "oracle_dataset2",
+  "label_target": "injected_iq_configuration",
+  "input": {
+    "complex_dtype": "<c16",
+    "dtype_authority": "https://www.genesys-lab.org/oracle",
+    "window_length": 256,
+    "stride": 256,
+    "normalization": "sample_rms",
+    "max_windows_per_recording": 512
+  },
+  "split": {
+    "unit": "tx_run",
+    "fractions": [0.6, 0.2, 0.2],
+    "known_classes": 10,
+    "validation_unknown_classes": 3,
+    "test_unknown_classes": 3,
+    "expected_classes": 16,
+    "partition_seed": 20261007,
+    "max_windows_per_class_per_view": 1024
+  },
+  "cnn_config": "2.define-baseline-model/01_cnn_msp/experiments/cnn_msp_baseline.json",
+  "openmax_config": "2.define-baseline-model/03_cnn_openmax/experiments/openmax_baseline.json",
+  "planned_folds": [0, 1, 2, 3, 4],
+  "planned_seeds": [42, 43, 44],
+  "primary_metric": "oscr_auc",
+  "secondary_metrics": ["known_closed_set_accuracy", "known_correct_accept_rate", "unknown_false_accept_rate", "auroc_known_positive"],
+  "scope": "injected_signature_open_set_identification_not_cross_day_or_causal_improvement"
+}

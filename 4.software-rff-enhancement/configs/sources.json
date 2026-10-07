@@ -1,0 +1,20 @@
+{
+  "oracle_dataset2": {
+    "landing_url": "https://www.genesys-lab.org/oracle",
+    "handle": "2047/D20324548",
+    "record_url": "https://repository.library.northeastern.edu/files/neu:m044q5228",
+    "archive_url": "https://repository.library.northeastern.edu/downloads/neu:m044q523j?datastream_id=content",
+    "description": "Equalized demodulated IQ symbols with 16 injected IQ imbalance configurations; cable capture.",
+    "dtype": "<c16",
+    "citation": "K. Sankhe et al., ORACLE: Optimized Radio clAssification through Convolutional neuraL nEtworks, IEEE INFOCOM 2019, pp. 370-378.",
+    "paper_url": "https://genesys-lab.org/papers/ORACLE-INFOCOM-19.pdf"
+  },
+  "airid": {
+    "landing_url": "https://genesys-lab.org/airid",
+    "handle": "2047/D20385048",
+    "record_url": "https://repository.library.northeastern.edu/files/neu:ww72bh13k",
+    "description": "OTA UAV recordings with injected amplitude imbalance; secondary study requiring a separate protocol and confirmed binary format.",
+    "citation": "S. Mohanti et al., AirID: Injecting a Custom RF Fingerprint for enhanced UAV Identification using Deep Learning, IEEE GLOBECOM 2020.",
+    "paper_url": "https://genesys-lab.org/papers/AirID_GLOBECOM2020.pdf"
+  }
+}
