@@ -1,6 +1,0 @@
-.venv/
-data/raw/
-data/downloads/
-data/fixtures/
-output/
-data/receipts/**/*.html
