@@ -133,7 +133,11 @@ def plot(candidates, output):
     fig.text(.07, .08, 'λ=0.5は波形変化の上限10%を超過。ほかの加工候補もvalidation OSCRで無加工を下回った。', color='#555555', fontsize=10)
     fig.text(.07, .025, '選択λ=0のため4評価日の比較も無加工と同一。非ゼロ強度の別日性能は未評価。', color='#555555', fontsize=10)
     fig.savefig(output / '残差強調の初回比較.png', dpi=180)
-    fig.savefig(output / '残差強調の初回比較.svg')
+    with (output / '残差強調の初回比較.svg').open('w', encoding='utf-8', newline='\n') as stream:
+        fig.savefig(stream, format='svg')
+    svg_path = output / '残差強調の初回比較.svg'
+    svg_path.write_text('\n'.join(line.rstrip() for line in svg_path.read_text(encoding='utf-8').splitlines()) + '\n',
+                        encoding='utf-8', newline='\n')
     plt.close(fig)
 
 
