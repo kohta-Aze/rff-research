@@ -1,0 +1,86 @@
+[
+  {
+    "date": "2021_03_01",
+    "known_count": 192,
+    "unknown_count": 64,
+    "known_closed_set_accuracy": 1.0,
+    "known_nearest_distance_quartiles": [
+      0.16275142674763496,
+      0.22123863288131157,
+      0.31635198965430705
+    ],
+    "unknown_nearest_distance_quartiles": [
+      0.21772505453615873,
+      0.311147051147764,
+      0.5295023281481742
+    ],
+    "known_true_class_distance_quartiles": [
+      0.16275142674763496,
+      0.22123863288131157,
+      0.31635198965430705
+    ]
+  },
+  {
+    "date": "2021_03_08",
+    "known_count": 192,
+    "unknown_count": 64,
+    "known_closed_set_accuracy": 0.9114583333333334,
+    "known_nearest_distance_quartiles": [
+      0.24388042802317839,
+      0.4272943882274793,
+      0.6585264011533981
+    ],
+    "unknown_nearest_distance_quartiles": [
+      0.2301489337614414,
+      0.35818971889805606,
+      0.671687438926122
+    ],
+    "known_true_class_distance_quartiles": [
+      0.24578110327887198,
+      0.4376470108311454,
+      0.7618325764061366
+    ]
+  },
+  {
+    "date": "2021_03_15",
+    "known_count": 192,
+    "unknown_count": 64,
+    "known_closed_set_accuracy": 0.875,
+    "known_nearest_distance_quartiles": [
+      0.24836469864446908,
+      0.41450287676395375,
+      0.7130401816936666
+    ],
+    "unknown_nearest_distance_quartiles": [
+      0.23995747688542174,
+      0.36140537853672294,
+      0.5765656777660686
+    ],
+    "known_true_class_distance_quartiles": [
+      0.24836469864446908,
+      0.4245535780232086,
+      0.8010678787544614
+    ]
+  },
+  {
+    "date": "2021_03_23",
+    "known_count": 192,
+    "unknown_count": 64,
+    "known_closed_set_accuracy": 0.953125,
+    "known_nearest_distance_quartiles": [
+      0.2614670231165038,
+      0.3876242403221879,
+      0.5560639720136863
+    ],
+    "unknown_nearest_distance_quartiles": [
+      0.21317804784024166,
+      0.2820531062083299,
+      0.5077114900520925
+    ],
+    "known_true_class_distance_quartiles": [
+      0.2614670231165038,
+      0.3876242403221879,
+      0.5861764302835246
+    ]
+  }
+]

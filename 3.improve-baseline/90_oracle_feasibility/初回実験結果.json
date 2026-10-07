@@ -1,0 +1,246 @@
+{
+  "created_at_jst": "2026-10-07T11:12:57+09:00",
+  "scope": "exploratory_within_record_injected_configuration_not_cross_day",
+  "exploratory_real_data": true,
+  "independent_recording_evaluation": false,
+  "scientific_result": false,
+  "fold": 0,
+  "seed": 42,
+  "run_directory": "output/runs/oracle_within_fold00_seed42",
+  "training": {
+    "epochs_executed": 50,
+    "best_epoch": 50,
+    "best_validation_known_loss": 0.14099076390266418,
+    "stop_reason": "max_epochs"
+  },
+  "class_roles": {
+    "test_unknown": [
+      "IQ14",
+      "IQ13",
+      "IQ26"
+    ],
+    "validation_unknown": [
+      "IQ09",
+      "IQ18",
+      "IQ02"
+    ],
+    "known": [
+      "IQ01",
+      "IQ03",
+      "IQ04",
+      "IQ05",
+      "IQ07",
+      "IQ15",
+      "IQ17",
+      "IQ19",
+      "IQ25",
+      "IQ32"
+    ]
+  },
+  "checkpoint_sha256": "f2c28621148a831a5931233c7920b58495ee637f2dc2c5fdda252cd000dbde49",
+  "split_sha256": "7be42f70c8f67ac3e037b69459a45f4ccdf0964ede1585b746f15e5710a06cb2",
+  "source_files": {
+    "4.software-rff-enhancement\\scripts\\check_environment.py": "76656c9255660544fba3a6e85d979f095983367567832a075e4f37973fd1b2f8",
+    "4.software-rff-enhancement\\scripts\\common.py": "060dea9f137ed178f16201aa2bc8c59cd452dbeddce019d9738fb9f00e7bbbf3",
+    "4.software-rff-enhancement\\scripts\\download_data.py": "7124af788ccc17ff8ec4c83c7559498911de700b27a8b6c24af2c1c9b16ffba1",
+    "4.software-rff-enhancement\\scripts\\prepare_data.py": "e9dc4b961a4cde94bcd7e213f515d6a656a0d2de423ff9d48930703f29efe34f",
+    "4.software-rff-enhancement\\scripts\\prepare_within_record.py": "d121cd4c71760564731b14da88e528d144f72b0fc4b507b53d16ea554703cb27",
+    "4.software-rff-enhancement\\scripts\\run_experiment.py": "ff9490dbee72a56b085c1f07665bb3085e6c95d8c926b7abdd1801d5d3a58943",
+    "4.software-rff-enhancement\\scripts\\run_matrix.py": "17e7e684dc1607c3011d96a0493ddd4aa460bc5d9236594a174d8b78ac9fcc7f",
+    "4.software-rff-enhancement\\scripts\\smoke_test.py": "87e7d3064afc2c8cb1434905c22f94cb379d9fc7a0b03f42ccd6fa5eeb81d452",
+    "2.define-baseline-model\\01_cnn_msp\\scripts\\run_experiment.py": "7672762be92bc80ef8c785472823831ea0a72b7a8f41d8322cb2bb1cf57c756d",
+    "2.define-baseline-model\\00_common\\modeling\\scripts\\cnn_backbone.py": "7a6bb3423e8e6c49c8baec7253170a21d58d132e89f1ad287931cb2e450a0f57",
+    "2.define-baseline-model\\00_common\\modeling\\scripts\\openmax.py": "81f055fc3b3b12da77197ac6088348b2bed391d4b84a06404bd1a22bc9c55e2c",
+    "2.define-baseline-model\\00_common\\modeling\\scripts\\open_set_metrics.py": "039a55db2d9818fbfc0dadfaaa7b14b893a5905ccd7b00a14ee9dbed5fc2f34b",
+    "2.define-baseline-model\\00_common\\modeling\\scripts\\open_set_outputs.py": "0a0b056715d8f8b229b538d939ea7e95feca3f87e2d8ba3f11a9e48d65d1f146",
+    "2.define-baseline-model\\00_common\\data_preprocessing\\scripts\\wisig_dataset.py": "4c664f01885d7c2ced29aeed79ca3540e688590482e4bbe79dea1eb411a85fc6"
+  },
+  "runtime": {
+    "python": "C:\\00_github_projects\\rff-research\\4.software-rff-enhancement\\.venv\\Scripts\\python.exe",
+    "threads": 4,
+    "device": "cpu",
+    "packages": {
+      "numpy": "2.5.3",
+      "torch": "2.7.0",
+      "scipy": "1.16.2",
+      "scikit-learn": "1.7.2",
+      "libmr": "0.1.9"
+    }
+  },
+  "openmax": {
+    "tail_size": 100,
+    "alpha_rank": 3,
+    "threshold": {
+      "threshold": 0.47973733084788395,
+      "rule": "maximize_mean_known_correct_accept_and_unknown_reject",
+      "tie_break": "highest_positive_threshold",
+      "validation_balanced_open_set_accuracy": 0.7320963541666666,
+      "selected_from": [
+        "validation_known",
+        "validation_unknown"
+      ]
+    }
+  },
+  "msp_threshold": {
+    "threshold": 0.9221919178962708,
+    "rule": "maximize_mean_known_correct_accept_and_unknown_reject",
+    "tie_break": "highest_threshold",
+    "validation_balanced_open_set_accuracy": 0.75234375
+  },
+  "choices_saved_before_test": true,
+  "view_counts": {
+    "train": 10240,
+    "validation_known": 2560,
+    "validation_unknown": 768,
+    "test_known": 2560,
+    "test_unknown": 768
+  },
+  "metrics": {
+    "validation": {
+      "cnn_msp": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.9221919178962708,
+        "known_closed_set_accuracy": 0.967578125,
+        "known_correct_accept_rate": 0.63359375,
+        "known_false_reject_rate": 0.365234375,
+        "known_misidentification_rate": 0.001171875,
+        "unknown_false_accept_rate": 0.12890625,
+        "unknown_reject_rate": 0.87109375,
+        "balanced_open_set_accuracy": 0.75234375,
+        "auroc_known_positive": 0.7657908121744791,
+        "oscr_auc": 0.7603235880533854
+      },
+      "cnn_openmax": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.47973733084788395,
+        "known_closed_set_accuracy": 0.92578125,
+        "known_correct_accept_rate": 0.740234375,
+        "known_false_reject_rate": 0.258984375,
+        "known_misidentification_rate": 0.00078125,
+        "unknown_false_accept_rate": 0.2760416666666667,
+        "unknown_reject_rate": 0.7239583333333334,
+        "balanced_open_set_accuracy": 0.7320963541666667,
+        "auroc_known_positive": 0.7983713785807292,
+        "oscr_auc": 0.7732976277669271
+      }
+    },
+    "test": {
+      "cnn_msp": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.9221919178962708,
+        "known_closed_set_accuracy": 0.96484375,
+        "known_correct_accept_rate": 0.644921875,
+        "known_false_reject_rate": 0.353125,
+        "known_misidentification_rate": 0.001953125,
+        "unknown_false_accept_rate": 0.3020833333333333,
+        "unknown_reject_rate": 0.6979166666666666,
+        "balanced_open_set_accuracy": 0.6714192708333333,
+        "auroc_known_positive": 0.7408037821451823,
+        "oscr_auc": 0.7294568379720052
+      },
+      "cnn_openmax": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.47973733084788395,
+        "known_closed_set_accuracy": 0.931640625,
+        "known_correct_accept_rate": 0.7421875,
+        "known_false_reject_rate": 0.25703125,
+        "known_misidentification_rate": 0.00078125,
+        "unknown_false_accept_rate": 0.125,
+        "unknown_reject_rate": 0.875,
+        "balanced_open_set_accuracy": 0.80859375,
+        "auroc_known_positive": 0.8750208536783856,
+        "oscr_auc": 0.8527491251627605
+      }
+    },
+    "test_awgn_20db": {
+      "cnn_msp": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.9221919178962708,
+        "known_closed_set_accuracy": 0.95234375,
+        "known_correct_accept_rate": 0.62421875,
+        "known_false_reject_rate": 0.3703125,
+        "known_misidentification_rate": 0.00546875,
+        "unknown_false_accept_rate": 0.2578125,
+        "unknown_reject_rate": 0.7421875,
+        "balanced_open_set_accuracy": 0.683203125,
+        "auroc_known_positive": 0.7476030985514323,
+        "oscr_auc": 0.7295082092285157
+      },
+      "cnn_openmax": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.47973733084788395,
+        "known_closed_set_accuracy": 0.863671875,
+        "known_correct_accept_rate": 0.643359375,
+        "known_false_reject_rate": 0.3515625,
+        "known_misidentification_rate": 0.005078125,
+        "unknown_false_accept_rate": 0.08072916666666667,
+        "unknown_reject_rate": 0.9192708333333334,
+        "balanced_open_set_accuracy": 0.7813151041666666,
+        "auroc_known_positive": 0.8369979858398438,
+        "oscr_auc": 0.7840601603190104
+      }
+    },
+    "test_awgn_10db": {
+      "cnn_msp": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.9221919178962708,
+        "known_closed_set_accuracy": 0.37578125,
+        "known_correct_accept_rate": 0.291796875,
+        "known_false_reject_rate": 0.334765625,
+        "known_misidentification_rate": 0.3734375,
+        "unknown_false_accept_rate": 0.69140625,
+        "unknown_reject_rate": 0.30859375,
+        "balanced_open_set_accuracy": 0.3001953125,
+        "auroc_known_positive": 0.4882090250651042,
+        "oscr_auc": 0.22472585042317708
+      },
+      "cnn_openmax": {
+        "sample_count": 3328,
+        "known_count": 2560,
+        "unknown_count": 768,
+        "threshold": 0.47973733084788395,
+        "known_closed_set_accuracy": 0.3875,
+        "known_correct_accept_rate": 0.162890625,
+        "known_false_reject_rate": 0.6203125,
+        "known_misidentification_rate": 0.216796875,
+        "unknown_false_accept_rate": 0.5638020833333334,
+        "unknown_reject_rate": 0.4361979166666667,
+        "balanced_open_set_accuracy": 0.29954427083333335,
+        "auroc_known_positive": 0.3341033935546875,
+        "oscr_auc": 0.1481694539388021
+      }
+    }
+  },
+  "openmax_minus_msp_oscr": {
+    "validation": 0.012974039713541718,
+    "test": 0.12329228719075525,
+    "test_awgn_20db": 0.05455195109049471,
+    "test_awgn_10db": -0.07655639648437498
+  },
+  "limits": [
+    "同一Tx/runの区間を分けた単一fold・seedの探索評価。",
+    "日跨ぎ・別収録・注入なしとの改善効果は検証していない。",
+    "同一収録由来の相関は残る。"
+  ],
+  "artifacts": {
+    "run.json": "4626e2f4a79d05e568c9aa60240b2772533c12761d5f08db6920b3b0dad97b11",
+    "metrics.json": "681ec6fcccf969d0a9e7f4369e2bcea39addf7e2d3fb6bbd35ac932bb2f2d812",
+    "metrics.csv": "b91f59eab35723b6fc0e7f895ce3cf7efcacbb016dc8aefc3b9faa18f913ddd0",
+    "msp/threshold.json": "41a5e091fbfd7417daa2f2e51bf24b1f218838af7dbbafc2d7c8005d9693f033",
+    "openmax/threshold.json": "478a0dd02fb59ec1c11065fc80a48b0f79387ce9938fbe3711d93f5521ffa99c"
+  }
+}
