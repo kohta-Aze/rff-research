@@ -154,6 +154,8 @@ def run(args):
     record = {"status": "running", "started_at_jst": now(), "fold": plan["fold"], "seed": args.seed,
               "synthetic_fixture": plan["synthetic_fixture"],
               "scientific_result": False,
+              "independent_recording_evaluation": plan.get("independent_recording_evaluation", True),
+              "exploratory_real_data": not plan["synthetic_fixture"] and plan.get("independent_recording_evaluation") is False,
               "scope": plan["scope"], "label_target": "injected_iq_configuration", "class_roles": plan["class_roles"],
               "class_map": plan["class_map"], "split_sha256": sha256(prepared / "split.json"),
               "runtime": {"python": sys.executable, "threads": args.threads, "device": "cpu",
@@ -201,7 +203,8 @@ def run(args):
         write_csv(out / "metrics.csv", [{"view": view, "method": method, "synthetic_fixture": plan["synthetic_fixture"], **value}
                   for view, methods in metrics.items() for method, value in methods.items()])
         record.update(status="completed", ended_at_jst=now(), elapsed_seconds=time.perf_counter() - started,
-                      scientific_result=not plan["synthetic_fixture"] and args.evaluate_test,
+                      scientific_result=not plan["synthetic_fixture"] and args.evaluate_test and
+                                        plan.get("independent_recording_evaluation", True),
                       awgn_db=args.awgn_db if args.evaluate_test else [])
         write_json(out / "run.json", record)
         print(f"Completed: {out}; synthetic_fixture={plan['synthetic_fixture']}; test_executed={args.evaluate_test}")

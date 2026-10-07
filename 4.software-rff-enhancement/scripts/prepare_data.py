@@ -27,7 +27,8 @@ def inventory(raw):
             errors.append({"path": str(path.relative_to(raw)), "error": "Unsupported name or missing matching .sigmf-meta"})
             continue
         try:
-            metadata = read_json(meta)
+            document = read_json(meta)
+            metadata = document.get("_metadata", document)
             if not isinstance(metadata.get("global"), dict):
                 raise ValueError("Missing global SigMF object.")
             data_sha256, data_sha512 = hashlib.sha256(), hashlib.sha512()
@@ -51,6 +52,7 @@ def inventory(raw):
                             "raw_sha256": digest, "metadata_sha256": sha256(meta),
                             "publisher_sha512_verified": bool(expected), "bytes": size, "sample_count": size // 16,
                             "declared_dtype": metadata["global"].get("core:datatype", "missing"),
+                            "metadata_layout": "legacy_wrapper" if "_metadata" in document else "standard",
                             "sample_rate_hz": metadata["global"].get("core:sample_rate"),
                             "effective_dtype": "<c16", "tx_id": match["tx"],
                             "iq_configuration": f"IQ{int(match['iq']):02d}", "run": int(match["run"]),
@@ -82,8 +84,13 @@ def partition_groups(config, records):
 
 
 def validate_plan(prepared, plan):
-    if plan.get("schema_version") != "oracle_window_split_v1":
+    within = plan.get("schema_version") == "oracle_within_record_time_split_v1"
+    if not within and plan.get("schema_version") != "oracle_window_split_v1":
         raise ValueError("Unsupported prepared split schema.")
+    if within and (plan["config"]["split"]["unit"] != "time_block" or
+                   plan["scope"] != "exploratory_within_record_injected_configuration_not_cross_day" or
+                   plan.get("independent_recording_evaluation") is not False):
+        raise ValueError("Time-block splits must explicitly retain their exploratory scope.")
     if sha256(prepared / "recordings.csv") != plan["record_manifest_sha256"]:
         raise ValueError("Recording manifest checksum differs from split.")
     expected_views = set(VIEWS)
@@ -115,7 +122,14 @@ def validate_plan(prepared, plan):
             if source is None or any(row[key] != source[key] for key in
                                      ["raw_sha256", "split_group", "iq_configuration", "tx_id", "run"]):
                 raise ValueError("Source leakage or provenance mismatch in a window reference.")
-            if plan["group_assignments"].get(row["split_group"]) != population:
+            if within:
+                bounds = time_block_bounds(source["sample_count"], plan["config"])
+                if plan["block_bounds"][row["recording_id"]] != bounds:
+                    raise ValueError("Time-block bounds differ from the predeclared fractions and gap.")
+                lower, upper = bounds[population]
+                if row["sample_start"] < lower or row["sample_start"] + 256 > upper:
+                    raise ValueError("Window leaves its assigned time block or enters the guard gap.")
+            elif plan["group_assignments"].get(row["split_group"]) != population:
                 raise ValueError("Source leakage: window assigned to the wrong population.")
             key = (row["raw_sha256"], row["sample_start"])
             if key in indices:
@@ -148,7 +162,7 @@ def validate_plan(prepared, plan):
                 raise ValueError("Window leaves the raw recording.")
             intervals.setdefault(row["raw_sha256"], []).append(row["sample_start"])
     for a, b in [("train", "validation"), ("train", "test"), ("validation", "test")]:
-        if groups[a] & groups[b] or hashes[a] & hashes[b]:
+        if not within and (groups[a] & groups[b] or hashes[a] & hashes[b]):
             raise ValueError(f"Source leakage between {a} and {b}.")
     for starts in intervals.values():
         if np.any(np.diff(sorted(starts)) < 256):
@@ -156,11 +170,30 @@ def validate_plan(prepared, plan):
     return {"verification_passed": True, "checked_at_jst": now(), "synthetic_fixture": plan["synthetic_fixture"],
             "view_counts": {view: len(rows) for view, rows in plan["views"].items()},
             "source_groups": {view: len(value) for view, value in groups.items()},
-            "cross_partition_source_overlap": 0, "overlapping_windows": 0,
+            "cross_partition_source_overlap": len((hashes["train"] & hashes["validation"]) |
+                                                   (hashes["train"] & hashes["test"]) |
+                                                   (hashes["validation"] & hashes["test"])),
+            "independent_recording_evaluation": not within, "overlapping_windows": 0,
             "scope": plan["scope"]}
 
 
+def time_block_bounds(sample_count, config):
+    split = config["split"]
+    windows = sample_count // 256
+    first = int(windows * split["fractions"][0])
+    second = int(windows * sum(split["fractions"][:2]))
+    gap = split["guard_windows_each_side"]
+    bounds = {"train": [0, (first - gap) * 256],
+              "validation": [(first + gap) * 256, (second - gap) * 256],
+              "test": [(second + gap) * 256, windows * 256]}
+    if gap < 1 or any(upper - lower < 256 for lower, upper in bounds.values()):
+        raise ValueError("Recording too short for the declared time blocks and guard gaps.")
+    return bounds
+
+
 def prepare(raw, output, config, fold=0):
+    if config["split"]["unit"] != "tx_run":
+        raise ValueError("The strict preparer only supports Tx/run-disjoint evaluation; use the explicit exploratory preparer.")
     if output.exists():
         raise FileExistsError(f"Output exists; choose a new output directory: {output}")
     output.mkdir(parents=True)

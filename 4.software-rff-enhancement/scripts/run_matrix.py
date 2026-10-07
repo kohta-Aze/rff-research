@@ -26,9 +26,10 @@ def main():
     output = args.output or ROOT / "output/matrices" / now().replace(":", "").replace("-", "")[:15]
     output.mkdir(parents=True, exist_ok=False)
     jobs = []
+    preparation_script = "prepare_within_record.py" if config["split"]["unit"] == "time_block" else "prepare_data.py"
     for fold in args.folds:
         prepared = output / f"prepared_fold{fold:02d}"
-        preparation = [sys.executable, str(ROOT / "scripts/prepare_data.py"), "--config", str(args.config.resolve()),
+        preparation = [sys.executable, str(ROOT / "scripts" / preparation_script), "--config", str(args.config.resolve()),
                        "--raw-root", str(args.raw_root.resolve()), "--output", str(prepared.resolve()), "--fold", str(fold)]
         for seed in args.seeds:
             training = [sys.executable, str(ROOT / "scripts/run_experiment.py"), "--prepared", str(prepared.resolve()),

@@ -75,8 +75,16 @@ def load_config(path):
         raise ValueError("ORACLE requires non-overlapping 256-point complex128 windows.")
     if inp["normalization"] != "sample_rms" or inp["max_windows_per_recording"] < 1:
         raise ValueError("Unsupported normalization or window limit.")
-    if split["unit"] != "tx_run" or len(split["fractions"]) != 3:
-        raise ValueError("Split must group all IQ configurations from the same Tx/run.")
+    if split["unit"] not in ["tx_run", "time_block"] or len(split["fractions"]) != 3:
+        raise ValueError("Unsupported split unit.")
+    if split["unit"] == "time_block":
+        if config["scope"] != "exploratory_within_record_injected_configuration_not_cross_day":
+            raise ValueError("Time-block evaluation must be explicitly marked exploratory.")
+        gap = split["guard_windows_each_side"]
+        if not isinstance(gap, int) or gap < 1 or set(split["max_windows_per_block"]) != {"train", "validation", "test"}:
+            raise ValueError("Time-block evaluation requires positive guard gaps and per-block caps.")
+        if any(not isinstance(n, int) or n < 1 for n in split["max_windows_per_block"].values()):
+            raise ValueError("Time-block caps must be positive integers.")
     if any(x <= 0 for x in split["fractions"]) or abs(sum(split["fractions"]) - 1) > 1e-8:
         raise ValueError("Split fractions must be positive and sum to one.")
     counts = [split[k] for k in ["known_classes", "validation_unknown_classes", "test_unknown_classes"]]

@@ -11,7 +11,7 @@
     "citation": "K. Sankhe et al., ORACLE: Optimized Radio clAssification through Convolutional neuraL nEtworks, IEEE INFOCOM 2019, pp. 370-378.",
     "paper_url": "https://genesys-lab.org/papers/ORACLE-INFOCOM-19.pdf"
   },
-  "status": "blocked",
+  "status": "validated_local_data",
   "attempts": [
     {
       "url": "https://www.genesys-lab.org/oracle",
@@ -36,7 +36,9 @@
       "method": "Python urllib; observed during acquisition at attempted_at_jst"
     }
   ],
-  "waveform_acquired": false,
+  "waveform_acquired": true,
   "discovered_downloads": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden"
+  "validated_at_jst": "2026-10-07T11:09:25+09:00",
+  "current_data_source": "local_import.json",
+  "historical_download_error": "HTTPError: HTTP Error 403: Forbidden"
 }

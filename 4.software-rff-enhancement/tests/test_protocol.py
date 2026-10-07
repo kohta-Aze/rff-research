@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from common import ROOT, inside, load_config, read_json, write_json
 from download_data import acquire, extract
 from prepare_data import inventory, partition_groups, prepare, roles, validate_plan
+from prepare_within_record import prepare_within_record
 
 
 class ProtocolTests(unittest.TestCase):
@@ -28,14 +29,14 @@ class ProtocolTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
-    def fixture(self):
+    def fixture(self, runs=6, samples=2048):
         raw = self.root / "raw"
         raw.mkdir()
         write_json(raw / "SYNTHETIC_FIXTURE.json", {"synthetic": True})
-        for run in range(6):
+        for run in range(runs):
             for iq in range(4):
                 rng = np.random.default_rng(run * 100 + iq)
-                wave = rng.normal(size=2048) + 1j * rng.normal(size=2048)
+                wave = rng.normal(size=samples) + 1j * rng.normal(size=samples)
                 stem = raw / f"Demod_WiFi_cable_X310_TEST_IQ#{iq + 1}_run{run + 1}"
                 wave.astype("<c16").tofile(stem.with_suffix(".sigmf-data"))
                 write_json(stem.with_suffix(".sigmf-meta"), {"global": {"core:datatype": "cf32"}})
@@ -55,6 +56,58 @@ class ProtocolTests(unittest.TestCase):
         paths[1].write_bytes(paths[0].read_bytes())
         _, errors = inventory(raw)
         self.assertTrue(any("Duplicate raw content" in error["error"] for error in errors))
+
+    def test_official_legacy_metadata_wrapper_is_supported(self):
+        raw = self.fixture()
+        for path in raw.glob("*.sigmf-meta"):
+            write_json(path, {"_metadata": read_json(path), "data_file": "C:/untrusted/original/path"})
+        records, errors = inventory(raw)
+        self.assertFalse(errors)
+        self.assertEqual(len(records), 24)
+        self.assertTrue(all(row["metadata_layout"] == "legacy_wrapper" for row in records))
+
+    def within_config(self):
+        config = deepcopy(self.config)
+        config["scope"] = "exploratory_within_record_injected_configuration_not_cross_day"
+        config["split"].update(unit="time_block", guard_windows_each_side=2,
+                               max_windows_per_block={"train": 8, "validation": 4, "test": 4})
+        return config
+
+    def test_within_record_blocks_are_explicit_and_nonoverlapping(self):
+        raw = self.fixture(runs=1, samples=256 * 128)
+        config = self.within_config()
+        with self.assertRaisesRegex(ValueError, "strict preparer"):
+            prepare(raw, self.root / "strict", config)
+        result = prepare_within_record(raw, self.root / "within", config)
+        self.assertTrue(result["verification_passed"])
+        self.assertFalse(result["independent_recording_evaluation"])
+        self.assertEqual(result["cross_partition_source_overlap"], 2)
+        self.assertEqual(result["overlapping_windows"], 0)
+
+    def test_within_record_wrong_time_block_is_rejected(self):
+        raw = self.fixture(runs=1, samples=256 * 128)
+        prepared = self.root / "within"
+        prepare_within_record(raw, prepared, self.within_config())
+        plan = read_json(prepared / "split.json")
+        label = plan["views"]["test_known"][0]["iq_configuration"]
+        plan["views"]["test_known"][0] = deepcopy(next(row for row in plan["views"]["train"]
+                                                      if row["iq_configuration"] == label))
+        with self.assertRaisesRegex(ValueError, "assigned time block"):
+            validate_plan(prepared, plan)
+
+    def test_within_record_cannot_claim_independent_evaluation(self):
+        raw = self.fixture(runs=1, samples=256 * 128)
+        prepared = self.root / "within"
+        prepare_within_record(raw, prepared, self.within_config())
+        plan = read_json(prepared / "split.json")
+        plan["independent_recording_evaluation"] = True
+        with self.assertRaisesRegex(ValueError, "exploratory scope"):
+            validate_plan(prepared, plan)
+
+    def test_within_record_short_recording_is_rejected(self):
+        raw = self.fixture(runs=1)
+        with self.assertRaisesRegex(ValueError, "too short"):
+            prepare_within_record(raw, self.root / "within", self.within_config())
 
     def test_publisher_checksum_is_checked(self):
         raw = self.fixture()
