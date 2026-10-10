@@ -1,0 +1,20 @@
+{
+  "schema_version": "suspicious_attempt_monitor_v1",
+  "seed": 42,
+  "validation_quantile": 0.99,
+  "policy": {
+    "window_seconds": 60.0,
+    "distinct_claim_limit": 3,
+    "feature_window": 10,
+    "feature_hit_limit": 3,
+    "duplicate_limit": 3,
+    "watch_seconds": 300.0
+  },
+  "attempt_interval_seconds": 1.0,
+  "context_signals": 20,
+  "phase_rotation_radians": 1.5707963267948966,
+  "phase_ramp_radians": 12.566370614359172,
+  "tracking": "assumed_receiver_assigned_stable_observation_id",
+  "ordering": "synthetic_sha256_order_not_capture_time",
+  "action": "review_list_only_with_offline_blocking_comparison"
+}

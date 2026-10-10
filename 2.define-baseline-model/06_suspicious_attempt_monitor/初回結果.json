@@ -1,0 +1,215 @@
+{
+  "schema_version": "suspicious_attempt_monitor_initial_result_v1",
+  "recorded_on_jst": "2026-10-10",
+  "human_review_status": "pending",
+  "scope": "synthetic_order_and_assumed_source_linking_on_previously_explored_wisig",
+  "real_attack_capture": false,
+  "source_run": "2.define-baseline-model/03_cnn_openmax/output/20261006_primary_fold00_seed42",
+  "detailed_output": "2.define-baseline-model/06_suspicious_attempt_monitor/output/20261010_balanced_claim_orders_fold00_seed42",
+  "fold": 0,
+  "training_seed": 42,
+  "scenario_seed": 42,
+  "checkpoint_sha256": "7bbb07a32e4c9fc0bafb04614471b7379caf8d603cd8038a7762d8b2ea890f70",
+  "split_sha256": "58f4a230a9214960989651e277ae2896f4c548ff9a18d26b9bb3858b2f9553f5",
+  "config_sha256": "f9d228477174c8c1ab3e1e9efcf27ed662196ca444f1f251ab6366e0e2666db7",
+  "source_files": {
+    "attempt_monitor.py": "557ce7cf291d30914a4ca2611d253c638fe7871a3ae839ea9b697dbfa3c239d7",
+    "run_monitor_experiment.py": "c833536becc0152f246a03c3df3b0ab999b000b4b71f0e6dac73e2b11769260a"
+  },
+  "reference_selection": {
+    "frozen_at": "2026-10-10T16:46:34+09:00",
+    "quantile": 0.99,
+    "training_count": 11520,
+    "validation_known_count": 3840,
+    "reference_thresholds": [
+      0.7832938980416455,
+      0.7091540892705898,
+      0.6860198298522573,
+      0.8013710015965705,
+      0.7031167809194447,
+      0.7177000232602577
+    ],
+    "jump_threshold": 0.8416748047725437,
+    "fit_uses_test_or_unknown_signals": false,
+    "policy": {
+      "window_seconds": 60.0,
+      "distinct_claim_limit": 3,
+      "feature_window": 10,
+      "feature_hit_limit": 3,
+      "duplicate_limit": 3,
+      "watch_seconds": 300.0
+    },
+    "reference_sha256": "1fb6d8df306065254f4654dc6aa9b2971b57b63ffc67c50f83d839d8127ba4b8"
+  },
+  "baseline_decisions_reproduced_on_all_four_days": true,
+  "config_file": "experiments/monitor.json",
+  "assumptions": [
+    "Stable receiver observation IDs are assumed; true Tx groups construct synthetic histories only.",
+    "Signal order and one-second intervals are synthetic, not observed authentication times.",
+    "Attack probes use same-day held-out signals; later days are normal-change controls.",
+    "All six starting claimed IDs are balanced; repeated histories are not independent observations.",
+    "Actual action is review only; blocking rates are offline counterfactuals.",
+    "Old first-seen recordings cannot be distinguished from identical fresh observations.",
+    "Exact waveform reuse is not an over-the-air replay experiment."
+  ],
+  "scenario_summary": [
+    {
+      "scenario": "normal_same_day",
+      "category": "normal",
+      "streams": 96,
+      "attempts": 3840,
+      "listed_streams": 4,
+      "listed_stream_rate": 0.041666666666666664,
+      "baseline_accept_rate": 0.7755208333333333,
+      "accept_rate_if_list_blocks": 0.7682291666666666,
+      "streams_with_success_if_list_blocks": 96,
+      "any_success_stream_rate_if_list_blocks": 1.0
+    },
+    {
+      "scenario": "normal_first_seen",
+      "category": "normal",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 1,
+      "listed_stream_rate": 0.010416666666666666,
+      "baseline_accept_rate": 0.7739583333333333,
+      "accept_rate_if_list_blocks": 0.7739583333333333,
+      "streams_with_success_if_list_blocks": 96,
+      "any_success_stream_rate_if_list_blocks": 1.0
+    },
+    {
+      "scenario": "normal_day_change_2021_03_08",
+      "category": "normal",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 3,
+      "listed_stream_rate": 0.03125,
+      "baseline_accept_rate": 0.5119791666666667,
+      "accept_rate_if_list_blocks": 0.5072916666666667,
+      "streams_with_success_if_list_blocks": 86,
+      "any_success_stream_rate_if_list_blocks": 0.8958333333333334
+    },
+    {
+      "scenario": "normal_day_change_2021_03_15",
+      "category": "normal",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 5,
+      "listed_stream_rate": 0.052083333333333336,
+      "baseline_accept_rate": 0.471875,
+      "accept_rate_if_list_blocks": 0.46197916666666666,
+      "streams_with_success_if_list_blocks": 79,
+      "any_success_stream_rate_if_list_blocks": 0.8229166666666666
+    },
+    {
+      "scenario": "normal_day_change_2021_03_23",
+      "category": "normal",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 4,
+      "listed_stream_rate": 0.041666666666666664,
+      "baseline_accept_rate": 0.51875,
+      "accept_rate_if_list_blocks": 0.5135416666666667,
+      "streams_with_success_if_list_blocks": 84,
+      "any_success_stream_rate_if_list_blocks": 0.875
+    },
+    {
+      "scenario": "synthetic_signal_change",
+      "category": "synthetic_attack",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 34,
+      "listed_stream_rate": 0.3541666666666667,
+      "baseline_accept_rate": 0.0,
+      "accept_rate_if_list_blocks": 0.0,
+      "streams_with_success_if_list_blocks": 0,
+      "any_success_stream_rate_if_list_blocks": 0.0
+    },
+    {
+      "scenario": "old_recording_first_seen",
+      "category": "synthetic_attack",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 1,
+      "listed_stream_rate": 0.010416666666666666,
+      "baseline_accept_rate": 0.7739583333333333,
+      "accept_rate_if_list_blocks": 0.7739583333333333,
+      "streams_with_success_if_list_blocks": 96,
+      "any_success_stream_rate_if_list_blocks": 1.0
+    },
+    {
+      "scenario": "exact_recording_reuse",
+      "category": "synthetic_attack",
+      "streams": 96,
+      "attempts": 1920,
+      "listed_streams": 96,
+      "listed_stream_rate": 1.0,
+      "baseline_accept_rate": 0.7083333333333334,
+      "accept_rate_if_list_blocks": 0.07083333333333333,
+      "streams_with_success_if_list_blocks": 68,
+      "any_success_stream_rate_if_list_blocks": 0.7083333333333334
+    },
+    {
+      "scenario": "normal_receiver_change",
+      "category": "normal",
+      "streams": 6,
+      "attempts": 120,
+      "listed_streams": 0,
+      "listed_stream_rate": 0.0,
+      "baseline_accept_rate": 0.9333333333333333,
+      "accept_rate_if_list_blocks": 0.9333333333333333,
+      "streams_with_success_if_list_blocks": 6,
+      "any_success_stream_rate_if_list_blocks": 1.0
+    },
+    {
+      "scenario": "unknown_fixed_claim",
+      "category": "unknown",
+      "streams": 192,
+      "attempts": 7680,
+      "listed_streams": 104,
+      "listed_stream_rate": 0.5416666666666666,
+      "baseline_accept_rate": 0.07955729166666667,
+      "accept_rate_if_list_blocks": 0.077734375,
+      "streams_with_success_if_list_blocks": 28,
+      "any_success_stream_rate_if_list_blocks": 0.14583333333333334
+    },
+    {
+      "scenario": "unknown_id_sweep",
+      "category": "unknown",
+      "streams": 192,
+      "attempts": 7680,
+      "listed_streams": 192,
+      "listed_stream_rate": 1.0,
+      "baseline_accept_rate": 0.07955729166666667,
+      "accept_rate_if_list_blocks": 0.00390625,
+      "streams_with_success_if_list_blocks": 30,
+      "any_success_stream_rate_if_list_blocks": 0.15625
+    },
+    {
+      "scenario": "unknown_id_sweep_new_track",
+      "category": "unknown",
+      "streams": 192,
+      "attempts": 7680,
+      "listed_streams": 0,
+      "listed_stream_rate": 0.0,
+      "baseline_accept_rate": 0.07955729166666667,
+      "accept_rate_if_list_blocks": 0.07955729166666667,
+      "streams_with_success_if_list_blocks": 145,
+      "any_success_stream_rate_if_list_blocks": 0.7552083333333334
+    }
+  ],
+  "worst_unknown_claim_pair": {
+    "unknown_tx": "11-1",
+    "claimed_tx": "20-19",
+    "attempts": 640,
+    "baseline_accepts": 470,
+    "accepts_if_list_blocks": 459,
+    "baseline_accept_rate": 0.734375,
+    "accept_rate_if_list_blocks": 0.7171875
+  },
+  "tests": {
+    "unit_tests_passed": 14,
+    "csv_aggregation_verified": true,
+    "code_snapshot_matches_current": true
+  }
+}

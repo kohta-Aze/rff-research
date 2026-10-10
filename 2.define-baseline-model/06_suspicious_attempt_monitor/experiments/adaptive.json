@@ -1,0 +1,14 @@
+{
+  "schema_version": "adaptive_authentication_comparison_v1",
+  "normal_validation_extra_reject_budget": 0.01,
+  "strength_candidates": [0.0, 0.000244140625, 0.00048828125, 0.0009765625, 0.001953125, 0.00390625, 0.0078125, 0.015625, 0.03125, 0.0625, 0.125, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0],
+  "failure_limit_candidates": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 80],
+  "calibration_grid_notes": "Coarse grid selected strength zero on known validation; added weaker strengths and integer failure limits using validation results only. Coarse run retained separately.",
+  "half_life_seconds": 60.0,
+  "switch_weight": 1.0,
+  "feature_weight": 0.5,
+  "max_risk": 64.0,
+  "selection": "strongest_feasible_on_known_validation_only",
+  "risk_feedback": "frozen_baseline_failure_not_own_stricter_rejection",
+  "action": "offline_counterfactual_no_live_authentication_change"
+}
